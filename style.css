@@ -34,3 +34,11 @@ button:hover {
   margin-top: 20px;
   font-size: 18px;
 }
+document.getElementById('listenButton').addEventListener('click', function() {
+  const button = document.getElementById('listenButton');
+  if (button.textContent === 'Start Listening') {
+    button.textContent = 'Stop Listening';
+  } else {
+    button.textContent = 'Start Listening';
+  }
+});
