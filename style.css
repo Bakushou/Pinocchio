@@ -34,11 +34,61 @@ button:hover {
   margin-top: 20px;
   font-size: 18px;
 }
-document.getElementById('listenButton').addEventListener('click', function() {
-  const button = document.getElementById('listenButton');
-  if (button.textContent === 'Start Listening') {
-    button.textContent = 'Stop Listening';
-  } else {
-    button.textContent = 'Start Listening';
-  }
-});
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button Text Change</title>
+  <style>
+    /* Din CSS här */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #f0f8ff;
+    }
+
+    #app {
+      text-align: center;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background: #0078d7;
+      color: #ffffff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #005a9e;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <button id="listenButton">Start Listening</button>
+  </div>
+
+  <script>
+    document.getElementById('listenButton').addEventListener('click', function() {
+      const button = document.getElementById('listenButton');
+      if (button.textContent === 'Start Listening') {
+        button.textContent = 'Stop Listening';
+      } else {
+        button.textContent = 'Start Listening';
+      }
+    });
+  </script>
+</body>
+</html>
