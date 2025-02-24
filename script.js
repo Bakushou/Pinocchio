@@ -61,3 +61,13 @@ function speakText(text) {
   const utterance = new SpeechSynthesisUtterance(text);
   speechSynthesis.speak(utterance);
 }
+// Hitta knappen och sätt en eventlistener på den
+document.getElementById('listenButton').addEventListener('click', function() {
+  const button = document.getElementById('listenButton');
+  // Om knappen har texten "Start Listening", ändra till "Stop Listening"
+  if (button.textContent === 'Start Listening') {
+    button.textContent = 'Stop Listening';
+  } else {
+    button.textContent = 'Start Listening'; // Annars ändra tillbaka
+  }
+});
