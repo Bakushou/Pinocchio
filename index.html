@@ -7,12 +7,12 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="sv">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Button Text Change</title>
+  <title>Ljudnivå och Knapptext</title>
   <style>
     /* Stilar för bakgrund och centrering */
     body {
@@ -38,7 +38,7 @@
     #logo {
       font-size: 32px;
       font-weight: bold;
-      color: #000000; /* Blå färg för logotypen */
+      color: #0078d7; /* Blå färg för logotypen */
       margin-bottom: 20px; /* Avstånd mellan logotyp och knapp */
     }
 
@@ -57,6 +57,22 @@
     button:hover {
       background-color: #005a9e; /* Mörkare blå när man hovrar */
     }
+
+    /* Progressbar för ljudnivå */
+    #levelBar {
+      width: 100%;
+      height: 20px;
+      margin-top: 20px;
+      background-color: #ddd;
+      border-radius: 10px;
+    }
+
+    #levelBar span {
+      display: block;
+      height: 100%;
+      background-color: #0078d7;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
@@ -67,20 +83,80 @@
 
     <!-- Blå knappen som vi kan klicka på -->
     <button id="listenButton">Start Listening</button>
+
+    <!-- Progressbar för att visa ljudnivå -->
+    <div id="levelBar">
+      <span id="levelIndicator" style="width: 0%"></span>
+    </div>
   </div>
 
   <script>
-    // Hitta knappen och sätt en eventlistener på den
-    document.getElementById('listenButton').addEventListener('click', function() {
-      const button = document.getElementById('listenButton');
-      // Om knappen har texten "Start Listening", ändra till "Stop Listening"
+    // Hämta knappen och progressbaren
+    const button = document.getElementById('listenButton');
+    const levelIndicator = document.getElementById('levelIndicator');
+
+    // Variabler för att hålla koll på ljudnivå
+    let audioContext, analyser, microphone, javascriptNode;
+
+    // Funktion för att starta eller stoppa lyssningen
+    function toggleListening() {
       if (button.textContent === 'Start Listening') {
-        button.textContent = 'Stop Listening';
+        startListening();
       } else {
-        button.textContent = 'Start Listening'; // Annars ändra tillbaka
+        stopListening();
       }
-    });
+    }
+
+    // Starta ljudupptagning
+    function startListening() {
+      button.textContent = 'Stop Listening';
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ audio: true })
+          .then(function(stream) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioContext.createAnalyser();
+            microphone = audioContext.createMediaStreamSource(stream);
+            javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
+
+            microphone.connect(analyser);
+            analyser.connect(javascriptNode);
+            javascriptNode.connect(audioContext.destination);
+
+            // Lyssna på ljudnivån
+            javascriptNode.onaudioprocess = function() {
+              const bufferLength = analyser.frequencyBinCount;
+              const dataArray = new Uint8Array(bufferLength);
+              analyser.getByteFrequencyData(dataArray);
+
+              // Beräkna den genomsnittliga ljudnivån
+              let sum = 0;
+              for (let i = 0; i < bufferLength; i++) {
+                sum += dataArray[i];
+              }
+              const average = sum / bufferLength;
+
+              // Uppdatera progressbaren baserat på ljudnivån
+              const level = (average / 255) * 100; // Omvandla till procent
+              levelIndicator.style.width = level + '%';
+            };
+          })
+          .catch(function(error) {
+            console.log('Error accessing microphone: ' + error);
+          });
+      }
+    }
+
+    // Stoppa ljudupptagning
+    function stopListening() {
+      button.textContent = 'Start Listening';
+      if (audioContext) {
+        audioContext.close();
+      }
+      levelIndicator.style.width = '0%'; // Återställ ljudnivåindikatorn
+    }
+
+    // Lägg till en event listener på knappen
+    button.addEventListener('click', toggleListening);
   </script>
 </body>
 </html>
-
