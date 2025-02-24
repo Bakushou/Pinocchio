@@ -7,4 +7,70 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button Text Change</title>
+  <style>
+    /* Stilar för bakgrund och centrering */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: black; /* Svart bakgrund */
+    }
+
+    /* Stilar för den vita rutan */
+    #app {
+      text-align: center;
+      background-color: white; /* Vit bakgrund för rutan */
+      padding: 40px;
+      border-radius: 15px; /* Rundade hörn */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Lätt skugga */
+    }
+
+    /* Stilar för knappen */
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #0078d7; /* Blå färg */
+      color: white;
+      cursor: pointer;
+    }
+
+    /* När man hovrar över knappen */
+    button:hover {
+      background-color: #005a9e; /* Mörkare blå när man hovrar */
+    }
+  </style>
+</head>
+<body>
+  <!-- Den vita rutan -->
+  <div id="app">
+    <!-- Blå knappen som vi kan klicka på -->
+    <button id="listenButton">Start Listening</button>
+  </div>
+
+  <script>
+    // Hitta knappen och sätt en eventlistener på den
+    document.getElementById('listenButton').addEventListener('click', function() {
+      const button = document.getElementById('listenButton');
+      // Om knappen har texten "Start Listening", ändra till "Stop Listening"
+      if (button.textContent === 'Start Listening') {
+        button.textContent = 'Stop Listening';
+      } else {
+        button.textContent = 'Start Listening'; // Annars ändra tillbaka
+      }
+    });
+  </script>
+</body>
+</html>
+
   
