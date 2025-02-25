@@ -34,10 +34,11 @@ button:hover {
   background-color: #005a9e; /* Mörkare blå när man hovrar */
 }
 #cornerImage {
-  position: absolute;
+  position: fixed; /* Gör så att den alltid stannar i hörnet */
   top: 10px;
   left: 10px;
-  width: 100px; /* Anpassa storlek efter behov */
+  width: 80px; /* Anpassa storlek */
   height: auto;
-  z-index: 100; /* Säkerställer att bilden ligger över andra element */
+  z-index: 100; /* Se till att bilden är över andra element */
 }
+
