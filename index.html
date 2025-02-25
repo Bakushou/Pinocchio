@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="sv">
 <head>
   <meta charset="UTF-8">
@@ -38,7 +38,7 @@
     #logo {
       font-size: 32px;
       font-weight: bold;
-      color: #0078d7; /* Blå färg för logotypen */
+      color: black; /* Svart färg för logotypen */
       margin-bottom: 20px; /* Avstånd mellan logotyp och knapp */
     }
 
@@ -135,8 +135,8 @@
               }
               const average = sum / bufferLength;
 
-              // Uppdatera progressbaren baserat på ljudnivån
-              const level = (average / 255) * 100; // Omvandla till procent
+              // Dubbelt så känslig: Multiplicera genomsnittet med 2
+              const level = Math.min((average / 255) * 200, 100); // Maxa vid 100%
               levelIndicator.style.width = level + '%';
             };
           })
