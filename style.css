@@ -33,3 +33,11 @@ button {
 button:hover {
   background-color: #005a9e; /* Mörkare blå när man hovrar */
 }
+#cornerImage {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 100px; /* Anpassa storlek efter behov */
+  height: auto;
+  z-index: 100; /* Säkerställer att bilden ligger över andra element */
+}
