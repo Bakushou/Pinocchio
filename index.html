@@ -135,8 +135,8 @@
               }
               const average = sum / bufferLength;
 
-              // Dubbelt så känslig: Multiplicera genomsnittet med 2
-              const level = Math.min((average / 255) * 200, 100); // Maxa vid 100%
+              // 150% mer känslig: Multiplicera genomsnittet med 2.5
+              const level = Math.min((average / 255) * 250, 100); // Maxa vid 100%
               levelIndicator.style.width = level + '%';
             };
           })
